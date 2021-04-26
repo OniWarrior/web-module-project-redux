@@ -1,13 +1,18 @@
-import React from 'react';
+
 import AdditionalFeature from './AdditionalFeature';
+import React, { useState} from 'react';
+import { connect } from "react-redux";
+import {initialCar} from '../actions/carFeatureAction'
 
 const AdditionalFeatures = props => {
+  const [additionalFeatures]= useState(props)
+  
   return (
     <div className="content">
       <h4>Additional Features</h4>
-      {props.additionalFeatures.length ? (
+      {additionalFeatures.additionalFeatures.length ? (
         <ol type="1">
-          {props.additionalFeatures.map(item => (
+          {additionalFeatures.additionalFeatures.map(item => (
             <AdditionalFeature key={item.id} feature={item} />
           ))}
         </ol>
@@ -18,4 +23,20 @@ const AdditionalFeatures = props => {
   );
 };
 
-export default AdditionalFeatures;
+const mapPropsToState=(state)=>{
+  
+  return {
+    additionalFeatures: state.additionalFeatures
+    
+  }
+
+}
+
+const mapDispatchToProps=(dispatch)=>{
+  return {
+    initialCar: additionalFeatures => dispatch(initialCar(additionalFeatures))
+  }
+}
+
+
+export default connect(mapPropsToState,mapDispatchToProps)(AdditionalFeatures);
