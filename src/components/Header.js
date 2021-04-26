@@ -1,15 +1,36 @@
-import React from 'react';
+import React, { useState} from 'react';
+import { connect } from "react-redux";
+import {initialCar} from '../actions/carFeatureAction'
 
-const Header = props => {
+
+const Header = (props) => {
+  const[newCar] = useState(props);
+  
   return (
     <>
       <figure className="image is-128x128">
-        <img src={props.car.image} alt={props.car.name} />
+        <img src={newCar.image} alt={newCar.name} />
       </figure>
-      <h2>{props.car.name}</h2>
-      <p>Amount: ${props.car.price}</p>
+      <h2>{newCar.name}</h2>
+      <p>Amount: ${newCar.price}</p>
     </>
   );
 };
 
-export default Header;
+const mapPropsToState=(state)=>{
+  return {
+    name:state.car.name,
+    image:state.car.image,
+    price:state.car.price
+  }
+
+}
+
+const mapDispatchToProps=(dispatch)=>{
+  return {
+    initialCar: newCar => dispatch(initialCar(newCar))
+  }
+}
+
+
+export default connect(mapPropsToState,mapDispatchToProps)(Header);

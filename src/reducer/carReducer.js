@@ -23,6 +23,7 @@ const initialState = {
             switch(newFeature.name){
                 case('V-6 engine'):
                   newFeature.price = 1500;
+                  state.additionalPrice += 1500;
                   break;
                 case('Racing detail package'):
                   newFeature.price = 1500;
@@ -32,8 +33,15 @@ const initialState = {
                   break;
                 case('Rear spoiler'):
                   newFeature.price = 250;
-            }
-            return {...state,additionalFeatures:[...state.additionalFeatures,newFeature]};
+            }    
+                   
+            return {...state,features:[...state.car.features,newFeature]};
+            
+         case("INITIAL_CAR"):
+            return state;
+                
+               
+            
             default:
                 return state;
       }
